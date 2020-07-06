@@ -13,6 +13,8 @@ const localLogin = new LocalStrategy({ usernameField: "email" }, function (
   User.findOne({ email: email }, function (err, user) {
     if (err) return done(err, false);
 
+    if (!user) return done(null, false);
+
     user.comparePassword(passport, function (err, isMatch) {
       if (err) return done(err);
       if (!isMatch) return done(null, false);
